@@ -103,6 +103,8 @@ class Player:
             self.rect.y
         ]
 
+        self.look_dir = 0
+
     # Called by kinematic
     def on_collide(self, cell):
         # Found door?
@@ -300,21 +302,9 @@ class Player:
         self.kinematic.move(dt)
         # endregion Move
 
-        # region Update camera anchor
-        self.camera_anchor[0] = self.rect.x + \
-            (self.facing_direction * (2 * TILE_S))
-        self.camera_anchor[1] = self.rect.y
-        # endregion Update camera anchor
-
         # region Get horizontal input direction
         self.direction = self.is_right_pressed - self.is_left_pressed
         # endregion Get horizontal input direction
-
-        # region Update facing direction and old facing direction
-        if self.direction != 0:
-            self.old_facing_direction = self.facing_direction
-            self.facing_direction = self.direction
-        # endregion Update facing direction and old facing direction
 
         # Idle
         if self.state == "idle":
@@ -404,6 +394,22 @@ class Player:
             if self.kinematic.is_on_floor and self.is_down_pressed:
                 self.set_state("crouch")
             # endregion Exit to crouch
+
+        # region Update camera anchor
+        if self.current_sprite_sheet == self.sprite_sheet:
+            self.look_dir = 1
+        elif self.current_sprite_sheet == self.sprite_sheet_flip:
+            self.look_dir = -1
+        self.camera_anchor[0] = self.rect.x + \
+            (self.look_dir * (2 * TILE_S))
+        self.camera_anchor[1] = self.rect.y
+        # endregion Update camera anchor
+
+        # region Update facing direction and old facing direction
+        if self.direction != 0:
+            self.old_facing_direction = self.facing_direction
+            self.facing_direction = self.direction
+        # endregion Update facing direction and old facing direction
 
     # Set state
     def set_state(self, value):
