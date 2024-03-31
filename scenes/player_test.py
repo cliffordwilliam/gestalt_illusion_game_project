@@ -70,6 +70,9 @@ class PlayerTest:
         # Draw fg
         self.room.draw_fg()
 
+        # Draw camera debug target
+        self.camera.draw()
+
     def update(self, dt):
         # region Update player
         self.player.update(dt)

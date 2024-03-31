@@ -99,8 +99,8 @@ class Player:
         # endregion Kinematic
 
         self.camera_anchor = [
-            self.rect.x + (self.facing_direction * (2 * TILE_S)),
-            self.rect.y
+            self.rect.center[0] + (self.facing_direction * (2 * TILE_S)),
+            self.rect.center[1]
         ]
 
         self.look_dir = 0
