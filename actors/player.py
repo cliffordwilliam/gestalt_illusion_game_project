@@ -245,6 +245,17 @@ class Player:
             )
             # endregion Draw is on wall
 
+            # region Draw look dir
+            value = "right" if self.look_dir == 1 else "left"
+            self.font.render_to(
+                DEBUG_SURF,
+                (self.font_w, self.font_h * 15),
+                f'look: {value}',
+                "white",
+                "black"
+            )
+            # endregion Draw look dir
+
             # region Draw my rect in tu tile
             # pos -> tu
             x_tu = (self.rect.centerx // TILE_S) - self.world.room.x_tu
